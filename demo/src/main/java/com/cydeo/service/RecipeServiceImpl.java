@@ -1,6 +1,7 @@
 package com.cydeo.service;
 
 import com.cydeo.entity.Ingredients;
+import com.cydeo.entity.QuantityType;
 import com.cydeo.entity.Recipe;
 
 import com.cydeo.proxy.ShareService;
@@ -36,7 +37,10 @@ public class RecipeServiceImpl implements RecipeService{
 
         int recipeType = new Random().nextInt(10);
 
-        Recipe recipe = new Recipe(String.valueOf(id), javaFaker.food().dish(), new Random().nextInt(4), prepareIngredient(), (recipeType<3)?BREAKFAST:(recipeType<6)?LUNCH:SOUP);
+//        List<>
+
+        Recipe recipe = new Recipe(String.valueOf(id), javaFaker.food().dish(),
+                new Random().nextInt(4), prepareIngredient(), (recipeType<3)?BREAKFAST:(recipeType<6)?LUNCH:SOUP);
 
 
         shareService.share(recipe);
@@ -49,9 +53,12 @@ public class RecipeServiceImpl implements RecipeService{
 
     private List<Ingredients> prepareIngredient(){
         List<Ingredients> ingredientsList = new ArrayList<>();
+        List<QuantityType> quantityTypes = List.of(QuantityType.values());
+
         int quantityType = new Random().nextInt(10);
         for(int i = 0; i < new Random().nextInt(10);i++){
-            ingredientsList.add(new Ingredients(javaFaker.food().ingredient(), new Random().nextInt(10), (quantityType<3)?LB:(quantityType<6)?OUNCE:TBSP) );
+                    ingredientsList.add(new Ingredients(javaFaker.food().ingredient(), new Random().nextInt(10)
+                    , quantityTypes.get(new Random().nextInt(3))) );
         }
 
         return ingredientsList;
